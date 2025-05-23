@@ -9,8 +9,10 @@ const page = await browser.newPage();
 await page.setUserAgent(
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 );
-
-const today = new Date().toLocaleDateString();
+let tempDate = new Date();
+tempDate = tempDate.setDate(tempDate.getDate() - 1);
+const previousDay = new Date(tempDate);
+console.log("Previous day: ", previousDay.toLocaleDateString());
 let currentDay = true;
 let articlesInfoArr = [];
 
@@ -49,7 +51,7 @@ export async function scrape() {
                 }, 2000);
             });
         });
-        articles = articles.slice(0, 1);
+        articles = articles.slice(0, lastIndex); //set to lastIndex when not testing
     }
 
     console.log("No more articles from today found.");
@@ -72,14 +74,21 @@ async function getOldestDate(articles) {
                     (el) => el.getAttribute("datetime"),
                     timeElement
                 );
-                let articlesDate = new Date(timeValue).toLocaleDateString();
-                if (articlesDate === today) {
+                let articlesDate = new Date(timeValue);
+                if (
+                    articlesDate > previousDay ||
+                    articlesDate.toLocaleDateString() ===
+                        previousDay.toLocaleDateString()
+                ) {
                     console.log("Current day articles found.");
                     currentDay = true;
                 } else {
                     console.log("No current day articles found.");
                     currentDay = false;
-                    console.log("Oldest article date: ", articlesDate);
+                    console.log(
+                        "Oldest article date: ",
+                        articlesDate.toLocaleDateString()
+                    );
                     return i;
                 }
             } else {
