@@ -20,6 +20,7 @@
   "homepage": "https://github.com/GhosteeGaming2103/gaming-news-bot#readme",
   "dependencies": {
     "@elevenlabs/elevenlabs-js": "^2.0.1",
+    "@supabase/supabase-js": "^2.49.8",
     "dotenv": "^16.5.0",
     "openai": "^4.102.0",
     "puppeteer": "^24.9.0"

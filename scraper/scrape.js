@@ -2,11 +2,14 @@ import "dotenv/config";
 
 import puppeteer from "puppeteer";
 
-const browser = await puppeteer.launch({
-    headless: false,
-});
+const browser = await puppeteer.launch();
 
 const page = await browser.newPage();
+
+await page.setUserAgent(
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+);
+
 const today = new Date().toLocaleDateString();
 let currentDay = true;
 let articlesInfoArr = [];
@@ -46,7 +49,7 @@ export async function scrape() {
                 }, 2000);
             });
         });
-        articles = articles.slice(0, lastIndex);
+        articles = articles.slice(0, 1);
     }
 
     console.log("No more articles from today found.");
@@ -92,6 +95,9 @@ async function getOldestDate(articles) {
 
 async function getArticleData(article) {
     let newPage = await browser.newPage();
+    await newPage.setUserAgent(
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+    );
     // get anchor element from article
     try {
         const anchorElement = await article.$("a");
