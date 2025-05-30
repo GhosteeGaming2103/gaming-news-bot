@@ -106,11 +106,11 @@ async function getOldestDate(articles) {
 }
 
 async function getArticleData(article) {
-    let newPage = await browser.newPage();
-    await newPage.setUserAgent(
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
-    );
     try {
+        let newPage = await browser.newPage();
+        await newPage.setUserAgent(
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+        );
         const anchorElement = await article.$("a");
         const articleUrl = await page.evaluate(
             (el) => el.getAttribute("href"),
