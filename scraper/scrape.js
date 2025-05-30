@@ -54,7 +54,7 @@ export async function scrape() {
                 }, 2000);
             });
         });
-        articles = articles.slice(0, 1); //set to lastIndex when not testing
+        articles = articles.slice(0, lastIndex); //set to lastIndex when not testing
     }
 
     console.log("No more articles from today found.");
