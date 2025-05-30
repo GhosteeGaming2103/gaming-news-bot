@@ -1,0 +1,41 @@
+name: Run Node Script
+
+on:
+  workflow_dispatch:  # Allows manual execution from GitHub UI
+
+jobs:
+  run-node:
+    runs-on: ubuntu-latest
+
+    env:
+      WEBSITE_URL: ${{ secrets.WEBSITE_URL }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+      SUPABASE_BUCKET_NAME: ${{ secrets.SUPABASE_BUCKET_NAME }}
+      SUPABASE_AUDIO_FOLDER: ${{ secrets.SUPABASE_AUDIO_FOLDER }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Node.js script
+        run: node your-script.js  # Change this to the name of your script
+
+      - name: Upload output files (optional)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: output-files
+          path: ./output/  # Change this to the path where your script writes files
