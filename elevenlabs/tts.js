@@ -1,7 +1,6 @@
 import { ElevenLabsClient, play } from "@elevenlabs/elevenlabs-js";
 import "dotenv/config";
 import fs from "fs/promises";
-
 const elevenlabs = new ElevenLabsClient();
 
 export async function generateAudio(script) {
@@ -17,3 +16,5 @@ export async function generateAudio(script) {
 
     await fs.writeFile("./audio/output.mp3", audio);
 }
+
+generateAudio("This is a test script for ElevenLabs TTS.");
