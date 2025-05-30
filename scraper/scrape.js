@@ -51,7 +51,7 @@ export async function scrape() {
                 }, 2000);
             });
         });
-        articles = articles.slice(0, lastIndex); //set to lastIndex when not testing
+        articles = articles.slice(0, 1); //set to lastIndex when not testing
     }
 
     console.log("No more articles from today found.");
@@ -107,7 +107,6 @@ async function getArticleData(article) {
     await newPage.setUserAgent(
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
     );
-    // get anchor element from article
     try {
         const anchorElement = await article.$("a");
         const articleUrl = await page.evaluate(
@@ -136,9 +135,4 @@ async function getArticleData(article) {
     } catch (e) {
         console.log("Error getting anchor element: ", e);
     }
-
-    // const articleTitle = await page.$eval("header", (header) =>
-    //     header.textContent.trim()
-    // );
-    // console.log("Article Title: ", articleTitle);
 }

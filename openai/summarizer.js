@@ -56,5 +56,6 @@ export async function scriptSummarize(articles) {
         ],
         max_completion_tokens: 1000,
     });
+    console.log("Script response: ", response.choices[0].message.content);
     return response.choices[0].message.content;
 }

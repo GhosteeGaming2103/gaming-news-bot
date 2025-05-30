@@ -46,7 +46,8 @@ export async function insertArticle(day_id, article) {
     }
 }
 
-export async function insertDay(date) {
+export async function insertDay() {
+    const date = new Date().toLocaleDateString();
     const { data, error } = await supabase
         .from("days")
         .insert({
@@ -103,7 +104,6 @@ export async function dowloadAudio(uuid) {
     if (error) {
         console.error("Error downloading audio:", error);
     } else {
-        // Option 1: Using promises API (your current approach, works fine)
         await fs.writeFile(
             "./download/audio.mp3",
             Buffer.from(await data.arrayBuffer())
