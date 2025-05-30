@@ -2,7 +2,7 @@ name: Run Node Script
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Every day at midnight UTC
+    - cron: '5 15 * * *'  # Every day at midnight UTC
   workflow_dispatch:     # Allows manual run from the GitHub UI
 
 
