@@ -1,7 +1,10 @@
 name: Run Node Script
 
 on:
-  workflow_dispatch:  # Allows manual execution from GitHub UI
+  schedule:
+    - cron: '0 0 * * *'  # Every day at midnight UTC
+  workflow_dispatch:     # Allows manual run from the GitHub UI
+
 
 jobs:
   run-node:
