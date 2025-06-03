@@ -1,8 +1,8 @@
 import "dotenv/config";
 import { scrape } from "./scraper/scrape.js";
 import { summarize, scriptSummarize } from "./openai/summarizer.js";
-// import { generateAudio } from "./elevenlabs/tts.js";
-import { generateAudio } from "./openai/tts.js";
+import { generateAudio } from "./elevenlabs/tts.js";
+// import { generateAudio } from "./openai/tts.js";
 import {
     insertArticle,
     insertDay,
