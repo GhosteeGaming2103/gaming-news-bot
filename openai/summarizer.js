@@ -15,7 +15,7 @@ const scriptPrompt = `You will receive a list of short summaries about recent ga
     gaming news YouTuber would use. The script should sound natural when read aloud by an AI voice, 
     so keep sentences smooth, conversational, and engaging. Add light transitions between topics,
     but do not include any headings, labels, or formatting—just plain text. Assume the listener is a 
-    gamer who wants the latest updates quickly but with some personality.`;
+    gamer who wants the latest updates quickly but with some personality. Limit length of the script to 6000 characters.`;
 
 /**
  *
