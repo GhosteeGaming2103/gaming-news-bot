@@ -2,6 +2,13 @@ import axios from "axios";
 import "dotenv/config";
 import FormData from "form-data";
 
+/**
+ *
+ * @param {string} content
+ * @param {File} fileBuffer
+ * * @returns {Promise<void>} - Sends a message to a Discord channel using a webhook.
+ * This function uses the Discord webhook URL from the environment variables to send a message with the provided content and an audio file.
+ */
 export async function sendDiscordMessage(content, fileBuffer) {
     const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
     if (!webhookUrl) {

@@ -12,6 +12,7 @@ const page = await browser.newPage();
 await page.setUserAgent(
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 );
+
 let tempDate = new Date();
 tempDate = tempDate.setDate(tempDate.getDate() - 1);
 const previousDay = new Date(tempDate);
@@ -19,6 +20,12 @@ console.log("Previous day: ", previousDay.toLocaleDateString());
 let currentDay = true;
 let articlesInfoArr = [];
 
+/**
+ * Class representing an article.
+ * @class
+ * @param {string} title - The title of the article.
+ * @param {string} textContent - The text content of the article.
+ */
 class Article {
     constructor(title, textContent) {
         this.title = title;
@@ -26,6 +33,11 @@ class Article {
     }
 }
 
+/**
+ *
+ * @returns {Promise<Array>} - A promise that resolves to an array of articles.
+ * This function scrapes the website for articles, checks their dates, and retrieves their data.
+ */
 export async function scrape() {
     await page.goto(`${process.env.WEBSITE_URL}`);
 
@@ -54,7 +66,7 @@ export async function scrape() {
                 }, 2000);
             });
         });
-        articles = articles.slice(0, lastIndex); //set to lastIndex when not testing
+        articles = articles.slice(0, 1); //set to lastIndex when not testing
     }
 
     console.log("No more articles from today found.");
@@ -67,6 +79,13 @@ export async function scrape() {
     return articlesInfoArr;
 }
 
+/**
+ *
+ * @param {Array<Article>} articles
+ * @returns {number} - The index of the oldest article that is not from the current day.
+ * This function checks the date of each article and returns the index of the first article
+ * that is not from the current day. If all articles are from the current day, it returns -1.
+ */
 async function getOldestDate(articles) {
     if (articles.length > 0) {
         for (let i = 0; i < articles.length; i++) {
@@ -105,6 +124,13 @@ async function getOldestDate(articles) {
     }
 }
 
+/**
+ *
+ * @param {Array<Article>} article
+ * @returns {Promise<void>} - A promise that resolves when the article data is retrieved.
+ * This function retrieves the title and content of an article,
+ * creates an Article object, and adds it to the articlesInfoArr array.
+ */
 async function getArticleData(article) {
     try {
         let newPage = await browser.newPage();

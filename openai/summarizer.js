@@ -17,6 +17,12 @@ const scriptPrompt = `You will receive a list of short summaries about recent ga
     but do not include any headings, labels, or formatting—just plain text. Assume the listener is a 
     gamer who wants the latest updates quickly but with some personality.`;
 
+/**
+ *
+ * @param {string} article
+ * @returns {Promise<Object>} - Returns the article object with a summary property added.
+ * This function uses OpenAI's chat completion model to generate a summary of the provided article.
+ */
 export async function summarize(article) {
     const response = await client.chat.completions.create({
         model: "o4-mini-2025-04-16",
@@ -36,6 +42,12 @@ export async function summarize(article) {
     return article;
 }
 
+/**
+ *
+ * @param {Array<Article>} articles
+ * @returns {Promise<string>} - Returns a script summarizing the provided articles.
+ * This function uses OpenAI's chat completion model to generate a script from the summaries of the articles.
+ */
 export async function scriptSummarize(articles) {
     let scriptList = "";
     for (let i = 0; i < articles.length; i++) {
