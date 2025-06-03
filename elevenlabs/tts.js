@@ -1,8 +1,15 @@
 import { ElevenLabsClient, play } from "@elevenlabs/elevenlabs-js";
 import "dotenv/config";
 import fs from "fs/promises";
+
 const elevenlabs = new ElevenLabsClient();
 
+/**
+ *
+ * @param {string} script
+ * @returns {Promise<void>} - Generates an audio file from the provided script using ElevenLabs TTS.
+ * * This function uses ElevenLabs' text-to-speech service to convert the provided script into an MP3 audio file.
+ */
 export async function generateAudio(script) {
     const audio = await elevenlabs.textToSpeech.convert(
         "JBFqnCBsd6RMkjVDRZzb",
@@ -16,5 +23,3 @@ export async function generateAudio(script) {
 
     await fs.writeFile("./audio/output.mp3", audio);
 }
-
-generateAudio("This is a test script for ElevenLabs TTS.");
