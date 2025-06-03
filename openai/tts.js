@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs/promises";
 import OpenAI from "openai";
 
 const openai = new OpenAI();
@@ -20,7 +20,7 @@ export async function generateAudio(script) {
         });
 
         const buffer = Buffer.from(await mp3.arrayBuffer());
-        await fs.promises.writeFile("./audio/output.mp3", buffer);
+        await fs.writeFile("./audio/output.mp3", buffer);
     } catch (error) {
         console.error("Error generating audio:", error);
     }
