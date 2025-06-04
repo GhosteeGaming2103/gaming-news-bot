@@ -60,12 +60,14 @@ export async function insertArticle(day_id, article) {
  * This function inserts a new day into the "days" table in the Supabase database.
  * It uses the current date as the date for the new day.
  */
-export async function insertDay() {
+export async function insertDay(script = "", audioUuid = "") {
     const date = new Date().toLocaleDateString();
     const { data, error } = await supabase
         .from("days")
         .insert({
             date: date,
+            script: script,
+            audio_file: audioUuid,
         })
         .select();
 
@@ -151,5 +153,24 @@ export async function dowloadAudio(uuid) {
             Buffer.from(await data.arrayBuffer())
         );
         console.log("Audio saved to ./download/audio.mp3");
+    }
+}
+
+/**
+ *
+ * @param {string} dayScript Script for the daily news summary
+ * @param {Array<Articles>} articles Array of article objects to be inserted
+ * @description
+ * This function inserts a new day into the database with the provided script and audio UUID,
+ * then inserts each article into the "articles" table associated with that day.
+ * It first calls `addAudio` to upload the audio file and get its UUID,
+ * then calls `insertDay` to create a new day entry.
+ * Finally, it iterates over the articles array and calls `insertArticle` for each article.
+ */
+export async function insertDayAndArticles(dayScript, articles) {
+    let audioUuid = await addAudio();
+    let day = await insertDay(dayScript, audioUuid);
+    for (let i = 0; i < articles.length; i++) {
+        await insertArticle(day.id, articles[i]);
     }
 }

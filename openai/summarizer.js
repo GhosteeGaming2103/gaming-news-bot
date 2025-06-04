@@ -36,10 +36,19 @@ export async function summarize(article) {
                 content: `Title: ${article.title}\n\nContent: ${article.textContent}`,
             },
         ],
+        max_completion_tokens: 1250,
     });
-    article.summary = response.choices[0].message.content;
+    let result = await response.choices[0].message.content;
+    return result;
+}
 
-    return article;
+export async function summarizeArticles(articles) {
+    await Promise.all(
+        articles.map(async (article) => {
+            article.summary = await summarize(article);
+        })
+    );
+    return await articles;
 }
 
 /**
@@ -67,6 +76,5 @@ export async function scriptSummarize(articles) {
             },
         ],
     });
-    console.log("Script response: ", response.choices[0].message.content);
     return response.choices[0].message.content;
 }
