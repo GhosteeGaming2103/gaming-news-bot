@@ -35,8 +35,7 @@ export async function summarize(article) {
                 role: "user",
                 content: `Title: ${article.title}\n\nContent: ${article.textContent}`,
             },
-        ],
-        max_completion_tokens: 1250,
+        ]        
     });
     let result = await response.choices[0].message.content;
     return result;
@@ -75,6 +74,7 @@ export async function scriptSummarize(articles) {
                 content: scriptList,
             },
         ],
+        max_completion_tokens: 1250,
     });
     return response.choices[0].message.content;
 }
