@@ -74,7 +74,6 @@ export async function scriptSummarize(articles) {
                 content: scriptList,
             },
         ],
-        max_completion_tokens: 1250,
     });
     return response.choices[0].message.content;
 }
